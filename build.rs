@@ -11,12 +11,13 @@ fn main() {
                          .status()
                          .unwrap();
 
-    Command::new( "libtool" ).args( &[ "-dynamic", "-lncurses", "curses_wrapper.o", "-o", "libcurses_wrapper.dylib" ] )
+    Command::new( "libtool" ).args( &[ "-dynamic", "curses_wrapper.o", "-o", "libcurses_wrapper.dylib", "-lncurses", "-lSystem" ] )
                              .current_dir( &Path::new( &out ) )
                              .status()
                              .unwrap();
 
+
     println!( "cargo:rustc-link-search=native={}", out );
-    println!( "cargo:rustc-link-lib=dylib=curses_constants" );
+    println!( "cargo:rustc-link-lib=dylib=curses_wrapper" );
 
 }
