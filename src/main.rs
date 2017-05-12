@@ -12,7 +12,6 @@ fn main() {
     unsafe {
         initscr();
         cbreak();
-        keypad();
         noecho();
 
         let mut c = getch();
