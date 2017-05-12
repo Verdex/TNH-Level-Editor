@@ -11,6 +11,7 @@ extern {
     pub fn printw( format : *const c_char, ... );
     pub fn cbreak();
     pub fn noecho();
+    pub fn keypad();
 }
 
 extern {
