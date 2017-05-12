@@ -11,16 +11,31 @@ fn main() {
     let mut y = 0;
     unsafe {
         initscr();
+        cbreak();
+        keypad();
+        noecho();
+
         let mut c = getch();
 
-        /* while c != final {
-            if c == up then
-                x++
-            cursor_move( 10, 10 );
-        */
+        while c as u8 as char != 'q' {
+            if c as u8 as char == 'j' {
+                y+=1;
+                cursor_move( y, x );
+            } else if c as u8 as char == 'k' {
+                y-=1;
+                cursor_move( y, x );
+            } else if c as u8 as char == 'l' {
+               x+=1;
+               cursor_move( y, x );
+            } else if c as u8 as char == 'h' {
+               x-=1;
+               cursor_move( y, x );
+            }
+            refresh();
+            c = getch();
+        }
 
-        refresh();
-        getch();
         endwin();
     }
 }
+
