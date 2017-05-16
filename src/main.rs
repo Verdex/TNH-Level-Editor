@@ -1,10 +1,17 @@
 
-
 mod curses;
 
 use std::ffi::CString;
 
 use curses::*;
+
+
+enum DrawMe {
+    Circle { radius : i32, x : i32, y : i32 },
+    /*Rec { width : i32, height : i32, x : i32, y : i32 },
+    VHall { length : i32, x : i32, y : i32 },
+    HHall { length : i32, x : i32, y : i32 },*/
+}
 
 fn main() {
     let mut x = 0;
