@@ -49,33 +49,44 @@ fn main() {
 
 
         let mut c = getch();
-
+        let mut shapes : Vec<DrawMe> = vec! [];
 
         while c as u8 as char != 'q' {
             let c2 = c as u8 as char;
             
             match c2 {
+                /*'c' => {
+                    shapes.push( DrawMe::Circle { radius: 5, x: x, y: y } );
+                },*/
+                'r' => {
+                    shapes.push( DrawMe::Rec { width: 2, height: 2, x: x, y: y } );
+                },
                 'j' => {
                     y+=1;
-                    cursor_move( y, x );
                 },
                 'k' => {
                     y-=1;
-                    cursor_move( y, x );
                 },
                 'l' => {
                     x+=1;
-                    cursor_move( y, x );
                 },
                 'h' => {
                     x-=1;
-                    cursor_move( y, x );
                 },
                 _ => (),
             }
+
+            for s in &shapes {
+                render_shape( s );
+            }
+            
+            cursor_move( y, x );
+      //      clear();
             refresh();
+
             c = getch();
         }
+
 
         endwin();
     }
