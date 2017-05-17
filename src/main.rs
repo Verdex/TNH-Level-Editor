@@ -26,21 +26,31 @@ fn main() {
         cbreak();
         noecho();
 
+
         let mut c = getch();
 
+
         while c as u8 as char != 'q' {
-            if c as u8 as char == 'j' {
-                y+=1;
-                cursor_move( y, x );
-            } else if c as u8 as char == 'k' {
-                y-=1;
-                cursor_move( y, x );
-            } else if c as u8 as char == 'l' {
-               x+=1;
-               cursor_move( y, x );
-            } else if c as u8 as char == 'h' {
-               x-=1;
-               cursor_move( y, x );
+            let c2 = c as u8 as char;
+            
+            match c2 {
+                'j' => {
+                    y+=1;
+                    cursor_move( y, x );
+                },
+                'k' => {
+                    y-=1;
+                    cursor_move( y, x );
+                },
+                'l' => {
+                    x+=1;
+                    cursor_move( y, x );
+                },
+                'h' => {
+                    x-=1;
+                    cursor_move( y, x );
+                },
+                _ => (),
             }
             refresh();
             c = getch();
