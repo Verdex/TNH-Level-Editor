@@ -7,14 +7,16 @@ use curses::*;
 
 
 enum DrawMe {
-    //Circle { radius : i32, x : i32, y : i32 },
     Rec { width : i32, height : i32, x : i32, y : i32 },
     /*VHall { length : i32, x : i32, y : i32 },
-    HHall { length : i32, x : i32, y : i32 },*/
+    HHall { length : i32, x : i32, y : i32 },
+    Character
+    VWall
+    HWall
+    River
+    Lava*/
     // TODO add color
     // TODO add background color
-    // TODO add point case
-    // TODO add overlap
     // TODO can probably have a struct represent common items (x,y, color, etc)
 }
 
@@ -71,6 +73,9 @@ fn main() {
         let mut c = getch();
         let mut shapes : Vec<DrawMe> = vec! [];
 
+        // TODO need mode for entering rech, etc
+        // TODO need mode for changing color
+
         while c as u8 as char != 'q' {
             let c2 = c as u8 as char;
             
@@ -101,7 +106,6 @@ fn main() {
             }
             
             cursor_move( y, x );
-      //      clear();
             refresh();
 
             c = getch();
