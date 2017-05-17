@@ -26,15 +26,35 @@ unsafe fn render_shape( s : &DrawMe ) {
 }
 
 unsafe fn render_rec( w : i32, h : i32, x : i32, y : i32 ) {
-    let c = CString::new( "." ).unwrap();
+    let dot = CString::new( "." ).unwrap();
+    let h_line = CString::new( "-" ).unwrap();
+    let v_line = CString::new( "|" ).unwrap();
+    let plus = CString::new( "+" ).unwrap();
 
-    let mut h2 = h;
+    let mut h2 = h + 2;
     while h2 > 0 {
+        let d : &CString = if h2 == h + 2 {
+            &h_line
+        } else if h2 == 1 {
+            &h_line
+        } else {
+            &dot
+        };
         let mut w2 = w;
+
+        let other_d : &CString = if h2 == h + 2 {
+            &plus
+        } else if h2 == 1 {
+            &plus
+        } else {
+            &v_line
+        };
+        mvprintw( y + h2, x + w2 + 1, other_d.as_ptr() );
         while w2 > 0 {
-            mvprintw( y + h2, x + w2, c.as_ptr() );
+            mvprintw( y + h2, x + w2, d.as_ptr() );
             w2 -= 1;
         }
+        mvprintw( y + h2, x, other_d.as_ptr() );
         h2 -= 1;
     }
 }
@@ -59,7 +79,7 @@ fn main() {
                     shapes.push( DrawMe::Circle { radius: 5, x: x, y: y } );
                 },*/
                 'r' => {
-                    shapes.push( DrawMe::Rec { width: 2, height: 2, x: x, y: y } );
+                    shapes.push( DrawMe::Rec { width: 5, height: 8, x: x, y: y } );
                 },
                 'j' => {
                     y+=1;
