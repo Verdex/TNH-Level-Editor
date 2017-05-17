@@ -12,6 +12,7 @@ extern {
     pub fn cbreak();
     pub fn noecho();
     pub fn keypad();
+    pub fn clear();
 }
 
 extern {
