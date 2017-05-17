@@ -18,6 +18,27 @@ enum DrawMe {
     // TODO can probably have a struct represent common items (x,y, color, etc)
 }
 
+unsafe fn render_shape( s : &DrawMe ) {
+    match s {
+        &DrawMe::Rec { width, height, x, y } => render_rec( width, height, x, y ),
+        _ => (),
+    }
+}
+
+unsafe fn render_rec( w : i32, h : i32, x : i32, y : i32 ) {
+    let c = CString::new( "." ).unwrap();
+
+    let mut h2 = h;
+    while h2 > 0 {
+        let mut w2 = w;
+        while w2 > 0 {
+            mvprintw( y + h2, x + w2, c.as_ptr() );
+            w2 -= 1;
+        }
+        h2 -= 1;
+    }
+}
+
 fn main() {
     let mut x = 0;
     let mut y = 0;
