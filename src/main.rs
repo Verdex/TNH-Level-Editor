@@ -51,15 +51,18 @@ unsafe fn render_rec( w : i32, h : i32, x : i32, y : i32 ) {
         } else {
             &v_line
         };
-        mvprintw( y + h2, x + w2 + 1, other_d.as_ptr() );
+        mvprintw( y + h2 + UserY, x + w2 + 1 + UserX, other_d.as_ptr() );
         while w2 > 0 {
-            mvprintw( y + h2, x + w2, d.as_ptr() );
+            mvprintw( y + h2 + UserY, x + w2 + UserX, d.as_ptr() );
             w2 -= 1;
         }
-        mvprintw( y + h2, x, other_d.as_ptr() );
+        mvprintw( y + h2 + UserY, x + UserX, other_d.as_ptr() );
         h2 -= 1;
     }
 }
+
+static mut UserX : i32 = 0;
+static mut UserY : i32 = 0; 
 
 fn main() {
     let mut x = 0;
@@ -84,7 +87,7 @@ fn main() {
                     shapes.push( DrawMe::Circle { radius: 5, x: x, y: y } );
                 },*/
                 'r' => {
-                    shapes.push( DrawMe::Rec { width: 5, height: 8, x: x, y: y } );
+                    shapes.push( DrawMe::Rec { width: 0, height: 0, x: x, y: y } );
                 },
                 'j' => {
                     y+=1;
@@ -98,8 +101,22 @@ fn main() {
                 'h' => {
                     x-=1;
                 },
+                'J' => {
+                    UserY += 1;
+                },
+                'K' => {
+                    UserY -= 1;
+                },
+                'L' => {
+                    UserX += 1;
+                },
+                'H' => {
+                    UserX -= 1;
+                },
                 _ => (),
             }
+
+            clear();
 
             for s in &shapes {
                 render_shape( s );
