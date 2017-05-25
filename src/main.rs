@@ -15,6 +15,72 @@ enum DrawMe {
 
 enum Mode { Normal, EnterRec, MoveRec }
 
+fn inc_width( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width + 1, height: height, x: x, y: y },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+
+fn inc_height( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height + 1, x: x, y: y },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+
+fn dec_width( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width - 1, height: height, x: x, y: y },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+
+fn dec_height( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height - 1, x: x, y: y },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+
+fn inc_x( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x + 1, y: y },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+
+fn inc_y( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x, y: y + 1 },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+
+fn dec_x( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x - 1, y: y },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+
+fn dec_y( d : DrawMe ) -> DrawMe {
+    match d {
+        DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x, y: y - 1 },
+        _ => panic!( "inc width encounters non-rec" ),
+    }
+}
+fn mod_rec<F>( maybe_d : Option<DrawMe>, f : F ) -> Option<DrawMe> 
+    where F : Fn( DrawMe ) -> DrawMe {
+
+    match maybe_d {
+        Some( d ) => Some( f( d ) ),
+        None => { None },
+    }
+}
+
+
+
 unsafe fn render_shape( s : &DrawMe ) {
     match s {
         &DrawMe::Rec { width, height, x, y } => render_rec( width, height, x, y ),
