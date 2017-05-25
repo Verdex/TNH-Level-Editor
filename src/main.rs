@@ -73,7 +73,6 @@ fn main() {
         let mut shapes : Vec<DrawMe> = vec! [];
 
         // TODO need mode for entering rech, etc
-        // TODO need to handle negative (some boxes disappear when off screen, followed by failure to enter new rects)
 
         while c as u8 as char != 'q' {
             let c2 = c as u8 as char;
