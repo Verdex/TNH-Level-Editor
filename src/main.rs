@@ -83,7 +83,7 @@ fn main() {
                     shapes.push( DrawMe::Circle { radius: 5, x: x, y: y } );
                 },*/
                 'r' => {
-                    shapes.push( DrawMe::Rec { width: 0, height: 0, x: x, y: y } );
+                    shapes.push( DrawMe::Rec { width: 0, height: 0, x: x - UserX, y: y - UserY } );
                 },
                 'j' => {
                     y+=1;
