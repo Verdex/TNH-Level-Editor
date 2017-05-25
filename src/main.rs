@@ -78,9 +78,6 @@ fn main() {
             let c2 = c as u8 as char;
             
             match c2 {
-                /*'c' => {
-                    shapes.push( DrawMe::Circle { radius: 5, x: x, y: y } );
-                },*/
                 'r' => {
                     shapes.push( DrawMe::Rec { width: 0, height: 0, x: x - UserX, y: y - UserY } );
                 },
