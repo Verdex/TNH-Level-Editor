@@ -13,6 +13,8 @@ enum DrawMe {
     */
 }
 
+enum Mode { Normal, EnterRec, MoveRec }
+
 unsafe fn render_shape( s : &DrawMe ) {
     match s {
         &DrawMe::Rec { width, height, x, y } => render_rec( width, height, x, y ),
@@ -68,6 +70,7 @@ fn main() {
 
         let mut c = getch();
         let mut shapes : Vec<DrawMe> = vec! [];
+        let mut mode : Mode = Mode::Normal;
 
         // TODO need mode for entering rech, etc
 
