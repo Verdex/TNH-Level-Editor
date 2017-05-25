@@ -11,9 +11,6 @@ enum DrawMe {
     /*
     Character
     */
-    // TODO add color
-    // TODO add background color
-    // TODO can probably have a struct represent common items (x,y, color, etc)
 }
 
 unsafe fn render_shape( s : &DrawMe ) {
