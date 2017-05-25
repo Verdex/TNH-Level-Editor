@@ -8,13 +8,9 @@ use curses::*;
 
 enum DrawMe {
     Rec { width : i32, height : i32, x : i32, y : i32 },
-    /*VHall { length : i32, x : i32, y : i32 },
-    HHall { length : i32, x : i32, y : i32 },
+    /*
     Character
-    VWall
-    HWall
-    River
-    Lava*/
+    */
     // TODO add color
     // TODO add background color
     // TODO can probably have a struct represent common items (x,y, color, etc)
