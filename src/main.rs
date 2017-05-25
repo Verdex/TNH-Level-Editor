@@ -137,6 +137,7 @@ fn main() {
         let mut c = getch();
         let mut shapes : Vec<DrawMe> = vec! [];
         let mut mode : Mode = Mode::Normal;
+        let mut active_rec : Option<DrawMe> = None;
 
         // TODO need mode for entering rech, etc
 
@@ -145,10 +146,33 @@ fn main() {
             
             match c2 {
                 'r' => {
-                    shapes.push( DrawMe::Rec { width: 0, height: 0, x: x - UserX, y: y - UserY } );
+                    match mode {
+                        Mode::Normal => {
+                            active_rec = Some( DrawMe::Rec { width: 0, height: 0, x: x - UserX, y: y - UserY });
+                            mode = Mode::EnterRec;
+                        },
+                        Mode::EnterRec => {
+                            mode = Mode::MoveRec; 
+                        },
+                        Mode::MoveRec => {
+                            mode = Mode::Normal;
+                            shapes.push( active_rec.unwrap() );
+                            active_rec = None;
+                        },
+                    }
                 },
                 'j' => {
-                    y+=1;
+                    match mode {
+                        Mode::Normal => {
+                            y+=1;
+                        },
+                        Mode::EnterRec => {
+                            active_rec = mod_rec( active_rec, inc_height );
+                        },
+                        Mode::MoveRec => {
+                            active_rec = mod_rec( active_rec, inc_y );
+                        },
+                    }
                 },
                 'k' => {
                     y-=1;
@@ -175,6 +199,11 @@ fn main() {
             }
 
             clear();
+
+            match active_rec {
+                Some( ref shape ) => render_shape( &shape ),
+                None => {},
+            }
 
             for s in &shapes {
                 render_shape( s );
