@@ -139,7 +139,6 @@ fn main() {
         let mut mode : Mode = Mode::Normal;
         let mut active_rec : Option<DrawMe> = None;
 
-        // TODO need mode for entering rech, etc
 
         while c as u8 as char != 'q' {
             let c2 = c as u8 as char;
