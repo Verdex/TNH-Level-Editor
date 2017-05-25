@@ -175,25 +175,75 @@ fn main() {
                     }
                 },
                 'k' => {
-                    y-=1;
+                    match mode {
+                       Mode::Normal => {
+                           y-=1;
+                       },
+                       Mode::EnterRec => {
+                            active_rec = mod_rec( active_rec, dec_height );
+                       },
+                       Mode::MoveRec => {
+                            active_rec = mod_rec( active_rec, dec_y );
+                       },
+                    }
                 },
                 'l' => {
-                    x+=1;
+                    match mode {
+                        Mode::Normal => {
+                            x+=1;
+                        },
+                        Mode::EnterRec => {
+                            active_rec = mod_rec( active_rec, inc_width );
+                        },
+                        Mode::MoveRec => {
+                            active_rec = mod_rec( active_rec, inc_x );
+                        },
+                    }
                 },
                 'h' => {
-                    x-=1;
+                    match mode {
+                        Mode::Normal => {
+                            x-=1;
+                        },
+                        Mode::EnterRec => {
+                            active_rec = mod_rec( active_rec, dec_width );
+                        },
+                        Mode::MoveRec => {
+                            active_rec = mod_rec( active_rec, dec_x );
+                        },
+                    }
                 },
                 'J' => {
-                    UserY += 1;
+                    match mode {
+                        Mode::Normal => {
+                            UserY += 1;
+                        },
+                        _ => {},
+                    }
                 },
                 'K' => {
-                    UserY -= 1;
+                    match mode {
+                        Mode::Normal => {
+                            UserY -= 1;
+                        },
+                        _ => {},
+                    }
                 },
                 'L' => {
-                    UserX += 1;
+                    match mode {
+                        Mode::Normal => {
+                            UserX += 1;
+                        },
+                        _ => {},
+                    }
                 },
                 'H' => {
-                    UserX -= 1;
+                    match mode {
+                        Mode::Normal => {
+                            UserX -= 1;
+                        },
+                        _ => {},
+                    }
                 },
                 _ => (),
             }
