@@ -25,49 +25,49 @@ fn inc_width( d : DrawMe ) -> DrawMe {
 fn inc_height( d : DrawMe ) -> DrawMe {
     match d {
         DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height + 1, x: x, y: y },
-        _ => panic!( "inc width encounters non-rec" ),
+        _ => panic!( "inc height encounters non-rec" ),
     }
 }
 
 fn dec_width( d : DrawMe ) -> DrawMe {
     match d {
         DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width - 1, height: height, x: x, y: y },
-        _ => panic!( "inc width encounters non-rec" ),
+        _ => panic!( "dec width encounters non-rec" ),
     }
 }
 
 fn dec_height( d : DrawMe ) -> DrawMe {
     match d {
         DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height - 1, x: x, y: y },
-        _ => panic!( "inc width encounters non-rec" ),
+        _ => panic!( "dec height encounters non-rec" ),
     }
 }
 
 fn inc_x( d : DrawMe ) -> DrawMe {
     match d {
         DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x + 1, y: y },
-        _ => panic!( "inc width encounters non-rec" ),
+        _ => panic!( "inc x encounters non-rec" ),
     }
 }
 
 fn inc_y( d : DrawMe ) -> DrawMe {
     match d {
         DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x, y: y + 1 },
-        _ => panic!( "inc width encounters non-rec" ),
+        _ => panic!( "inc y encounters non-rec" ),
     }
 }
 
 fn dec_x( d : DrawMe ) -> DrawMe {
     match d {
         DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x - 1, y: y },
-        _ => panic!( "inc width encounters non-rec" ),
+        _ => panic!( "dec x encounters non-rec" ),
     }
 }
 
 fn dec_y( d : DrawMe ) -> DrawMe {
     match d {
         DrawMe::Rec { width, height, x, y } => DrawMe::Rec { width: width, height: height, x: x, y: y - 1 },
-        _ => panic!( "inc width encounters non-rec" ),
+        _ => panic!( "dec y encounters non-rec" ),
     }
 }
 fn mod_rec<F>( maybe_d : Option<DrawMe>, f : F ) -> Option<DrawMe> 
