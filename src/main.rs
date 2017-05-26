@@ -12,12 +12,10 @@ use curses::*;
 // TODO use struct with common fields and use an enum for unshared ones
 enum DrawMe {
     Rec { width : i32, height : i32, x : i32, y : i32 },
-    /*
-    Character
-    */
+    Character { c : char, x : i32, y : i32 },
 }
 
-enum Mode { Normal, EnterRec, MoveRec }
+enum Mode { Normal, EnterRec, MoveRec, EnterCharacter }
 
 fn inc_width( d : DrawMe ) -> DrawMe {
     match d {
@@ -84,12 +82,16 @@ fn mod_rec<F>( maybe_d : Option<DrawMe>, f : F ) -> Option<DrawMe>
 }
 
 
-
 unsafe fn render_shape( s : &DrawMe ) {
     match s {
         &DrawMe::Rec { width, height, x, y } => render_rec( width, height, x, y ),
+        &DrawMe::Character { c, x, y } => render_character( c, x, y ),
         _ => (),
     }
+}
+
+unsafe fn render_character( c : char, x : i32, y : i32 ) {
+    mvaddch( y + UserY, x + UserX, c );   
 }
 
 unsafe fn render_rec( w : i32, h : i32, x : i32, y : i32 ) {
@@ -143,11 +145,23 @@ fn main() {
         let mut mode : Mode = Mode::Normal;
         let mut active_rec : Option<DrawMe> = None;
 
-
         while c as u8 as char != 'q' {
             let c2 = c as u8 as char;
-            
+
             match c2 {
+                'c' => {
+                    match mode {
+                        Mode::Normal => {
+                            mode = Mode::EnterCharacter;
+                        },
+                        Mode::EnterRec => {},
+                        Mode::MoveRec => {},
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'c', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
+                    }
+                },
                 'r' => {
                     match mode {
                         Mode::Normal => {
@@ -162,6 +176,10 @@ fn main() {
                             shapes.push( active_rec.unwrap() );
                             active_rec = None;
                         },
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'r', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
                     }
                 },
                 'j' => {
@@ -174,6 +192,11 @@ fn main() {
                         },
                         Mode::MoveRec => {
                             active_rec = mod_rec( active_rec, inc_y );
+                        },
+
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'j', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
                         },
                     }
                 },
@@ -188,6 +211,11 @@ fn main() {
                        Mode::MoveRec => {
                             active_rec = mod_rec( active_rec, dec_y );
                        },
+
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'k', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
                     }
                 },
                 'l' => {
@@ -201,6 +229,11 @@ fn main() {
                         Mode::MoveRec => {
                             active_rec = mod_rec( active_rec, inc_x );
                         },
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'l', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
+
                     }
                 },
                 'h' => {
@@ -214,12 +247,20 @@ fn main() {
                         Mode::MoveRec => {
                             active_rec = mod_rec( active_rec, dec_x );
                         },
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'h', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
                     }
                 },
                 'J' => {
                     match mode {
                         Mode::Normal => {
                             UserY += 1;
+                        },
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'J', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
                         },
                         _ => {},
                     }
@@ -229,6 +270,10 @@ fn main() {
                         Mode::Normal => {
                             UserY -= 1;
                         },
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'K', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
                         _ => {},
                     }
                 },
@@ -236,6 +281,10 @@ fn main() {
                     match mode {
                         Mode::Normal => {
                             UserX += 1;
+                        },
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'L', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
                         },
                         _ => {},
                     }
@@ -245,10 +294,23 @@ fn main() {
                         Mode::Normal => {
                             UserX -= 1;
                         },
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: 'H', x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
                         _ => {},
                     }
                 },
-                _ => (),
+                c3 @ _ => {
+                    match mode {
+                        Mode::EnterCharacter => {
+                            shapes.push( DrawMe::Character{ c: c3, x: x - UserX, y: y - UserY } );
+                            mode = Mode::Normal;
+                        },
+                        _ => {},
+                    }
+                },
+
             }
 
             clear();
