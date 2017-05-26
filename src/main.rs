@@ -5,7 +5,11 @@ use std::ffi::CString;
 
 use curses::*;
 
+// TODO delete active rectangle
+// TODO save to file (just save shape coords and types, etc)
+// TODO load file
 
+// TODO use struct with common fields and use an enum for unshared ones
 enum DrawMe {
     Rec { width : i32, height : i32, x : i32, y : i32 },
     /*
