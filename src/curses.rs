@@ -13,6 +13,7 @@ extern {
     pub fn keypad();
     pub fn clear();
     pub fn mvprintw( y : i32, x : i32, format : *const c_char, ... );
+    pub fn mvaddch( y : i32, x : i32, c : char );
 }
 
 extern {
