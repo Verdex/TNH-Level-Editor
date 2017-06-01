@@ -3,6 +3,10 @@ mod curses;
 
 use std::ffi::CString;
 
+use std::env::args;
+use std::path::Path;
+use std::fs::File;
+
 use curses::*;
 
 // TODO delete active rectangle
@@ -132,6 +136,24 @@ static mut UserX : i32 = 0;
 static mut UserY : i32 = 0; 
 
 fn main() {
+
+    let mut level_file : Option<File> = None;
+    for a in args() {
+        let p = Path::new( &a );
+        if p.exists() {
+            let fr = File::open( p );
+            match fr {
+                Ok( f ) => { level_file = Some( f ); },
+                _ => panic!( "error opening file"),
+            }
+            break;
+        }
+    }
+
+    // TODO check to make sure the file exists
+    // TODO parse the contents
+    
+
     let mut x = 0;
     let mut y = 0;
     unsafe {
