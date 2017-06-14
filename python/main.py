@@ -1,11 +1,11 @@
 
-from render.curses_screen import curses_screen
+from render.curses_interface import screen
 
 
 
 def main():
     
-    with curses_screen() as ikky:
+    with screen() as ikky:
         ikky.write_string( 0, 0, "blah" )
         ikky.get_character()
 
