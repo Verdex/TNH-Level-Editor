@@ -18,6 +18,9 @@ class helper:
     def refresh( self ):
         self.screen.refresh()
 
+    def move_cursor( self, x, y ):
+        self.screen.move( y, x )
+
 
 class screen:
 
