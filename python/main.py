@@ -1,5 +1,5 @@
 
-from curses_interface.curses_screen import curses_screen
+from render.curses_screen import curses_screen
 
 
 

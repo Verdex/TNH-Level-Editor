@@ -2,7 +2,7 @@
 
 import curses
 
-class curses_helper:
+class helper:
     def __init__(self, screen):
         self.screen = screen
 
@@ -19,14 +19,14 @@ class curses_helper:
         self.screen.refresh()
 
 
-class curses_screen:
+class screen:
 
     def __enter__(self):
         self.screen = curses.initscr()
         self.screen.keypad( 1 )
         curses.cbreak()
         curses.noecho()
-        return curses_helper( self.screen )
+        return helper( self.screen )
 
 
     def __exit__(self, type, value, traceback):
