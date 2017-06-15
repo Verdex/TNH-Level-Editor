@@ -1,11 +1,14 @@
 
 from render.curses_interface import screen
-
+from util.input_engine import input_handler
 
 # TODO make letter action register thingy
 
+
 def main():
     
+    input_h = input_handler() 
+
     with screen() as s:
         c = s.get_character() 
         while c != ord( 'q' ):
@@ -25,11 +28,11 @@ def main():
                 pass
 
             elif c == ord( 'h' ):
-                pass
 
+                pass
             elif c == ord( 'J' ):
-                pass
 
+                pass
             elif c == ord( 'K' ):
                 pass
 
